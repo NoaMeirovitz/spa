@@ -1,0 +1,76 @@
+<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="" class="form-label">Email</label>
+    <input
+      #emailField
+      formControlName="email"
+      type="email"
+      class="form-control"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Password</label>
+    <input formControlName="password" type="password" class="form-control" />
+  </div>
+  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">
+    Login
+  </button>
+</form>
+
+<div>
+  <a
+    routerLink="/signup-component"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class=""
+    >Create New Account</a
+  >
+</div> -->
+
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+  style="width: 22rem; margin: 0 auto; padding: 20px"
+>
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <input
+      #emailField
+      formControlName="email"
+      type="email"
+      class="form-control"
+      id="form2Example1"
+    />
+    <label class="form-label" for="form2Example1">Email address</label>
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <input
+      type="password"
+      id="form2Example2"
+      class="form-control"
+      formControlName="password"
+    />
+    <label class="form-label" for="form2Example2">Password</label>
+  </div>
+
+  <!-- 2 column grid layout for inline styling -->
+  <div class="row mb-4"></div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+  <!-- Register buttons -->
+  <div class="text-center">
+    <p>
+      Not a member?
+      <a
+        routerLink="/signup-component"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Register</a
+      >
+    </p>
+  </div>
+</form>
