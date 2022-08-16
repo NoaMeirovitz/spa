@@ -9,12 +9,10 @@ const routes: Routes = [
   {
     path: '',
     canActivateChild: [AuthService],
-    children: [
-      { path: 'customers-component', component: CustomersComponent },
-      { path: 'signup-component', component: SignupComponent },
-      { path: 'login-component', component: LoginComponent },
-    ],
+    children: [{ path: 'customers-component', component: CustomersComponent }],
   },
+  { path: 'signup-component', component: SignupComponent },
+  { path: 'login-component', component: LoginComponent },
 ];
 
 @NgModule({

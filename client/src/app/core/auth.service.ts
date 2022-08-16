@@ -38,6 +38,10 @@ export class AuthService implements CanActivateChild {
     return this.router.navigate(['login-component']);
   }
 
+  getUsername() {
+    return this.username;
+  }
+
   isLoggedIn(): boolean {
     const token = localStorage.getItem(this.tokenField);
     console.log('isLoggedIn', token && token.length > 0 ? true : false);
@@ -48,6 +52,7 @@ export class AuthService implements CanActivateChild {
     return this.apiService.login(details).pipe(
       tap((data: User) => {
         if (data.token) {
+          console.log(data);
           localStorage.setItem(this.tokenField, data.token);
           this.username = data.username;
           this.apiService.setToken(data.token);

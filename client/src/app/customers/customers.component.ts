@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../core/api.service';
+import { AuthService } from '../core/auth.service';
 import {
   AddCustomer,
   Customer,
@@ -20,6 +21,18 @@ export class CustomersComponent implements OnInit {
   searchTerm!: string;
   showForm = false;
   showNotification = false;
+  username = '';
+
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {
+    this.username = authService.getUsername();
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 
   customerForm = new FormGroup({
     name: new FormControl('', {
@@ -73,8 +86,6 @@ export class CustomersComponent implements OnInit {
   toggleForm() {
     this.showForm = !this.showForm;
   }
-
-  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getCustomers();

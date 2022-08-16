@@ -26,12 +26,15 @@ async function login(req, res, next) {
   try {
     const result = await database.query(sql, [value.email]);
     const user = result[0][0];
+    if (!user) {
+      throw new Error("User doesn't exist");
+    }
     const validPassword = await bcrypt.compare(
       value.password,
       user.password_hash
     );
     if (!validPassword) {
-      throw "Invalid password";
+      throw new Error("Invalid password");
     }
 
     const param = { email: value.email };
@@ -40,13 +43,12 @@ async function login(req, res, next) {
     res.json({
       token: token,
       id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
+      username: user.username,
       email: user.email,
     });
   } catch (err) {
     console.log(`Error: ${err}`);
-    res.status(401).send("Unauthorized");
+    res.status(401).send(err.message);
     return;
   }
 }

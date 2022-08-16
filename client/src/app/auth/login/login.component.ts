@@ -15,7 +15,11 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
+  emailValidity = '';
+  passwordValidity = '';
+  loginResult = '';
   @ViewChild('emailField') emailField!: ElementRef;
+  @ViewChild('passwordField') passwordField!: ElementRef;
 
   loginForm = new FormGroup({
     email: new FormControl('', {
@@ -36,12 +40,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     if (!this.loginForm.valid) {
+      this.emailValidity = this.emailField.nativeElement.validationMessage;
+      this.passwordValidity =
+        this.passwordField.nativeElement.validationMessage;
       return;
     }
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => this.router.navigate(['/customers-component']),
-      error: (err) => console.error(err),
+      error: (err) => {
+        console.error(err);
+        this.loginResult = err.error;
+      },
     });
   }
 }
